@@ -15,7 +15,9 @@ const withMDX = createMDX({
         theme: {
           light: "catppuccin-latte",
           dark: "material-theme-darker",
-    }}]],
+    },
+    grid: false
+  }]],
   },
 })
  
