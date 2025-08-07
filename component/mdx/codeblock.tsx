@@ -17,15 +17,16 @@ function* textGenerator(node: React.ReactNode): Generator<string> {
             yield* textGenerator(child);
         }
     } else if (React.isValidElement(node)) {
-        yield* textGenerator(node.props.children);
+        yield* textGenerator((node as React.ReactElement<any>).props.children);
     }
 }
 
 export default function Codespace({ children }: { children: React.ReactNode }) {
-    const root = useRef(null);
-    const scope = useRef(null);
+    const root = useRef<HTMLDivElement>(null);
+    const scope = useRef<any>(null);
   
     useEffect(() => {
+        if (!root.current) return;
         scope.current = createScope({ root: root.current }).add(self => {
             self.add('applySuccessStatus', (isSuccessAction) => {
                 let buttonAnimeTimeline = createTimeline({ defaults: { duration: 300 } });
@@ -49,7 +50,7 @@ export default function Codespace({ children }: { children: React.ReactNode }) {
     let mainCode = childArray.find((child) => !(React.isValidElement(child) && child.type === 'figcaption'))
 
     let dataLanguage = titleCaption && React.isValidElement(titleCaption)
-    ? titleCaption?.props['data-language']
+    ? (titleCaption as React.ReactElement<any>).props['data-language']
     : "NOT_ASSIGN_PROGRAMMING_LANGUAGE"
 
     let dataLanguageIcon = programingLanguageMap[dataLanguage];          

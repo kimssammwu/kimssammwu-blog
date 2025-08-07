@@ -17,7 +17,7 @@ export default function KBD({ children }: { children: string }) {
 
 
 // TODO: string or svg object
-const keyMap: Record<string, string> = {
+const keyMap: Record<string, React.ReactNode> = {
     // 알파벳 대문자 → 소문자
     A: "a", B: "b", C: "c", D: "d", E: "e",
     F: "f", G: "g", H: "h", I: "i", J: "j",
